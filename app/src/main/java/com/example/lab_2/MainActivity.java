@@ -11,12 +11,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.content.Intent;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     String[] countries = { "Швейцарія", "Ямайка", "Данія", "Італія", "Того"};
     ImageView imageView;
     TextView textView;
-    Button button;
+    Button button1;
+    Button button2;
+    Button button3;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -26,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
-        button = findViewById(R.id.button);
+        button1 = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (textView.getVisibility() == View.VISIBLE) {
@@ -36,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     textView.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSendMessage(v);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSendMessage1(v);
             }
         });
 
@@ -57,6 +76,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         spinner.setOnItemSelectedListener(itemSelectedListener);
+    }
+
+    public void onSendMessage(View view) {
+        EditText messageView = (EditText)findViewById(R.id.editTextTextMultiLine);
+        String messageText = messageView.getText().toString();
+        Intent intent = new Intent(this, MainActivity2.class);
+        intent.putExtra(MainActivity2.EXTRA_MESSAGE, messageText);
+        startActivity(intent);
+    }
+    public void onSendMessage1(View view) {
+        EditText messageView = (EditText)findViewById(R.id.editTextTextMultiLine);
+        String messageText = messageView.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, messageText);
+        startActivity(intent);
     }
 
     @SuppressLint("SetTextI18n")
