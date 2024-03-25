@@ -8,14 +8,63 @@
     android:padding="16dp">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:orientation="vertical"
+        android:padding="16dp"
         tools:context="com.had.messenger.MainActivity"
-        tools:ignore="RedundantNamespace,UselessLeaf">
+        tools:ignore="RedundantNamespace,UselessLeaf"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="28dp">
+
+        <TextView
+            android:id="@+id/time_view"
+            android:layout_width="220dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="350dp"
+            android:background="#fbd777"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textIsSelectable="true"
+            android:textSize="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/reset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="5dp"
+            android:onClick="onClickReset"
+            android:text="@string/reset"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="-48dp"
+            android:onClick="onClickStop"
+            android:text="@string/stop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="-49dp"
+            android:onClick="onClickStart"
+            android:text="@string/start"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
 
     <Spinner
@@ -96,7 +145,7 @@
         android:id="@+id/button3"
         android:layout_width="139dp"
         android:layout_height="48dp"
-        android:layout_marginLeft="216dp"
+        android:layout_marginLeft="225dp"
         android:layout_marginTop="312dp"
         android:text="Поділитися"
         app:layout_constraintLeft_toLeftOf="parent"

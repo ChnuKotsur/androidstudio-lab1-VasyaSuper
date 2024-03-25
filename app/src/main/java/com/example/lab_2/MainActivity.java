@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.EditText;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     String[] countries = { "Швейцарія", "Ямайка", "Данія", "Італія", "Того"};
@@ -22,12 +24,22 @@ public class MainActivity extends AppCompatActivity {
     Button button2;
     Button button3;
 
+    //Количество секунд на секундомере.
+    private int seconds = 0;
+    //Секундомер работает?
+    private boolean running;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null) {
+            seconds = savedInstanceState.getInt("seconds");
+            running = savedInstanceState.getBoolean("running");
+        }
+        runTimer();
 
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
@@ -76,6 +88,47 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         spinner.setOnItemSelectedListener(itemSelectedListener);
+    }
+
+    //Start the stopwatch running when the Start button is clicked.
+    public void onClickStart(View view) {
+        running = true;
+    }
+    //Stop the stopwatch running when the Stop button is clicked.
+    public void onClickStop(View view) {
+        running = false;
+    }
+    //Reset the stopwatch when the Reset button is clicked.
+    public void onClickReset(View view) {
+        running = false;
+        seconds = 0;
+    }
+
+    private void runTimer() {
+        final TextView timeView = (TextView)findViewById(R.id.time_view);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hours = seconds/3600;
+                int minutes = (seconds%3600)/60;
+                int secs = seconds%60;
+                String time = String.format(Locale.getDefault(),
+                        "%d:%02d:%02d", hours, minutes, secs);
+                timeView.setText(time);
+                if (running) {
+                    seconds++;
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putBoolean("running", running);
     }
 
     public void onSendMessage(View view) {
